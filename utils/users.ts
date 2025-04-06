@@ -3,23 +3,23 @@ import type { User } from '@supabase/supabase-js';
 
 const supabase = createClient();
 
-// export interface IUserLink {
-//   id: string;
-//   label: string;
-//   url: string;
-// }
+export interface IUserLink {
+  id: string;
+  label: string;
+  url: string;
+}
 
-// export interface IUser {
-//   id: string;
-//   email: string;
-//   name: string;
-//   description: string;
-//   avatar: string;
-//   created_at: Date;
-//   updated_at: Date;
-//   links: IUserLink[];
-//   provider: 'google' | 'github' | 'email';
-// }
+export interface IUser {
+  id: string;
+  email: string;
+  name: string;
+  description: string;
+  avatar: string;
+  created_at: Date;
+  updated_at: Date;
+  links: IUserLink[];
+  provider: 'google' | 'github' | 'email';
+}
 
 export const users = {
   async getUser(id: string) {
