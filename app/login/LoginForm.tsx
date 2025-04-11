@@ -32,7 +32,7 @@ export function LoginForm() {
     try {
       setIsLoading(true);
       await auth.signIn(email, password);
-      router.push('/projects');
+      router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Auth error:', error);

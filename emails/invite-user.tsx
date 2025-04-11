@@ -44,7 +44,7 @@ export const InviteUserEmail = ({
             </Text>
             <Text className="text-black text-[14px] leading-[24px]">
               <strong>{invitedByUsername}</strong> has invited you to the{' '}
-              <strong>{projectName}</strong> project on <strong>ProjeX</strong>.
+              <strong>{projectName}</strong> project on <strong>Taskly</strong>.
             </Text>
 
             <Section className="text-center mt-[32px] mb-[32px]">
