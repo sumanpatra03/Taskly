@@ -72,11 +72,11 @@ export const InviteUserEmail = ({
   );
 };
 
-InviteUserEmail.PreviewProps = {
-  username: 'John Doe',
-  invitedByUsername: 'Jane Doe',
-  projectName: 'Enigma',
-  inviteLink: 'https://taskly.com/project/invite/foo',
-} as InviteUserEmailProps;
+// InviteUserEmail.PreviewProps = {
+//   username: 'John Doe',
+//   invitedByUsername: 'Jane Doe',
+//   projectName: 'Enigma',
+//   inviteLink: 'https://taskly.com/project/invite/foo',
+// } as InviteUserEmailProps;
 
 export default InviteUserEmail;

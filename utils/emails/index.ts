@@ -1,40 +1,35 @@
 import { Resend } from 'resend';
+import { InviteUserEmail } from '@/emails/invite-user'; 
+import type { NextRequest } from 'next/server'; // If using Next.js App Router
 
-const resend = new Resend('re_AcoVh9cJ_JjGkjgxkpGoD484sWVgangnz');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const emails = {
-  sendProjectInvitation: async ({
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const {
     to,
-    projectId,
-    role,
     username,
-    projectName,
     invitedByUsername,
-  }: {
-    to: string;
-    projectId: string;
-    role: Role;
-    username: string;
-    projectName: string;
-    invitedByUsername: string;
-  }) => {
-    const response = await fetch('/api/invite-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to,
-        projectId,
-        role,
+    projectName,
+    inviteLink,
+  } = body;
+
+  try {
+    const data = await resend.emails.send({
+      from: 'Taskly <no-reply@yourdomain.com>',
+      to,
+      subject: `You've been invited to join ${projectName} on Taskly`,
+      react: InviteUserEmail({
         username,
-        projectName,
         invitedByUsername,
-      }),
+        projectName,
+        inviteLink,
+      }) as React.ReactElement,
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to send invitation email');
-    }
-
-    return response.json();
-  },
-};
+    return Response.json(data);
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    return new Response('Email sending failed', { status: 500 });
+  }
+}
