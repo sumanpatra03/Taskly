@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { useDebounce } from '@/hooks/useDebounce';
 import { cn } from '@/lib/utils';
-import { emails } from '@/utils/emails';
+
 import { createClient } from '@/utils/supabase/client';
 import { Loader2, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -108,7 +108,7 @@ export const InviteUsers = ({
         .select('id')
         .eq('project_id', projectId)
         .eq('user_id', selectedUser.id)
-        .single();
+        .maybeSingle();
 
       if (existingMember) {
         toast({
@@ -143,14 +143,23 @@ export const InviteUsers = ({
       } as MemberWithUser;
 
       // Send invitation email
-      await emails.sendProjectInvitation({
-        to: selectedUser.email,
-        projectId,
-        role,
-        username: selectedUser.name,
-        projectName,
-        invitedByUsername: currentUser?.name || '',
+      const res = await fetch('/api/invite-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: selectedUser.email,
+          projectId,
+          role,
+          username: selectedUser.name,
+          projectName,
+          invitedByUsername: currentUser?.name || '',
+        }),
       });
+      if (!res.ok) {
+        const errBody = await res.json();
+        console.error('Invite API error:', errBody);
+        throw new Error(errBody.error || 'Failed to send invitation email');
+      }
 
       onMemberAdded?.(newMember);
 

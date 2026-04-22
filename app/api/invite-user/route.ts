@@ -3,12 +3,14 @@ import { NextResponse } from 'next/server';
 
 import { Resend } from 'resend';
 
-const resend = new Resend("re_AcoVh9cJ_JjGkjgxkpGoD484sWVgangnz");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
     const { to, username, projectName, invitedByUsername, projectId, role } =
       await request.json();
+
+    console.log('Sending email to:', to);
 
     const { data, error } = await resend.emails.send({
       from: 'Taskly <noreply@mrshadrack.com>',
@@ -18,16 +20,19 @@ export async function POST(request: Request) {
         username,
         projectName,
         invitedByUsername,
-        inviteLink: `${request.headers.get('origin')}/invites/${projectId}?role=${role}`,
+        inviteLink: `${process.env.NEXT_PUBLIC_APP_URL || request.headers.get('origin')}/invites/${projectId}?role=${role}`,
       }),
     });
 
     if (error) {
-      return NextResponse.json({ error }, { status: 400 });
+      console.error('Resend error:', JSON.stringify(error, null, 2));
+      return NextResponse.json({ error: error.message || 'Failed to send email' }, { status: 400 });
     }
 
+    console.log('Email sent successfully:', data);
     return NextResponse.json({ data });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error('Server error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
