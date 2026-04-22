@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     console.log('Sending email to:', to);
 
     const { data, error } = await resend.emails.send({
-      from: 'Taskly <noreply@mrshadrack.com>',
+      from: 'Taskly <onboarding@resend.dev>',
       to,
       subject: 'Invitation to join a project',
       react: InviteUserEmail({
