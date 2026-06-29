@@ -54,7 +54,17 @@ export async function POST(request: Request) {
     const { to, username, projectName, invitedByUsername, projectId, role } =
       await request.json();
 
-    const inviteLink = `${process.env.NEXT_PUBLIC_APP_URL}/invites/${projectId}?role=${role}`;
+    const inviteLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/invites/${projectId}?role=${role}`;
+
+    const isMockMode =
+      !process.env.GMAIL_USER ||
+      !process.env.GMAIL_APP_PASSWORD ||
+      process.env.GMAIL_APP_PASSWORD === 'your_16_char_app_password';
+
+    if (isMockMode) {
+ 
+      return NextResponse.json({ success: true, mocked: true });
+    }
 
     await transporter.sendMail({
       from: `Taskly <${process.env.GMAIL_USER}>`,
@@ -79,9 +89,15 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Email error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Failed to send email',
+        details: error?.message || String(error),
+      },
+      { status: 500 }
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 'use client';
 import { secondaryBtnStyles, successBtnStyles } from '@/app/commonStyles';
 import { cn } from '@/lib/utils';
-import { Check, RefreshCcw } from 'lucide-react';
+import { Check, RefreshCcw, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -132,6 +132,7 @@ export const CreateOrEditLabelForm = ({
               !isValidHexColor(color) || !labelName.trim() || isSubmitting
             }
           >
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isSubmitting
               ? 'Submitting...'
               : mode === 'edit'

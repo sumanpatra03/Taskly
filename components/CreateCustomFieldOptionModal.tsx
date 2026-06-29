@@ -20,7 +20,7 @@ import { useParams } from 'next/navigation';
 interface Props {
   title: string;
   triggerLabel?: string;
-  triggerBtn?: ReactElement;
+  triggerBtn?: ReactElement<any>;
   handleSubmit?: (data: Omit<ICustomFieldData, 'id'>) => void;
   action?: 'create-new-project' | 'update-project';
 }

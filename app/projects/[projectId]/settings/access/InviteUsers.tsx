@@ -230,6 +230,7 @@ export const InviteUsers = ({
           className={cn(successBtnStyles, 'px-3')}
           disabled={!selectedUser || isInviting}
         >
+          {isInviting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isInviting ? 'Inviting...' : 'Invite'}
         </Button>
       </div>

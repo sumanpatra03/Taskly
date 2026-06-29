@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Select,
   SelectContent,
@@ -11,7 +12,7 @@ import { SquareChevronDown, Tag } from 'lucide-react';
 export const GroupByOptions: {
   value: CustomField | 'none';
   label: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 }[] = [
   {
     value: 'none',

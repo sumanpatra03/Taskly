@@ -24,7 +24,7 @@ import {
 } from "@/consts/default-options";
 import { useModalDialog } from "@/hooks/useModalDialog";
 import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { v4 as uid } from "uuid";
 import { secondaryBtnStyles, successBtnStyles } from "../commonStyles";
@@ -255,6 +255,7 @@ export const CreateProjectModal = ({ projectDetails }: Props) => {
               className={cn(successBtnStyles, "w-28")}
               disabled={isCreating}
             >
+              {isCreating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isCreating ? "Creating..." : "Create"}
             </Button>
           </div>

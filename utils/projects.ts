@@ -173,6 +173,7 @@ export const projects = {
           user:users (
             id,
             name,
+            email,
             avatar,
             description,
             links

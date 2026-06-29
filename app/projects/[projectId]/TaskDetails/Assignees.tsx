@@ -23,7 +23,7 @@ import { useProjectOwner } from '@/hooks/useProjectOwner';
 
 export const Assignees = () => {
   const params = useParams();
-  const { selectedTask } = useTaskDetails();
+  const { selectedTask, projectName } = useTaskDetails();
   const { members, reloadProjectTasks } = useProjectQueries(
     params.projectId as string
   );
@@ -72,11 +72,14 @@ export const Assignees = () => {
   };
 
   const handlePopoverOpenChange = async (open: boolean) => {
+
+
     if (
       !open &&
       JSON.stringify(selectedAssignees.sort()) !==
         JSON.stringify(task?.assignees?.map((a) => a.id).sort())
     ) {
+  
       const currentAssignees = task?.assignees?.map((a) => a.id) || [];
       const newAssignees = selectedAssignees;
 
@@ -87,6 +90,8 @@ export const Assignees = () => {
       const removedAssignees = currentAssignees.filter(
         (id) => !newAssignees.includes(id)
       );
+
+     
 
       // Update the assignees first
       await updateAssignees(selectedAssignees);
@@ -103,6 +108,7 @@ export const Assignees = () => {
       if (addedAssignees.length > 0) {
         // Check if it's a self-assignment
         if (addedAssignees.length === 1 && addedAssignees[0] === user?.id) {
+         
           activities.push({
             task_id: selectedTask?.id as string,
             user_id: user?.id as string,
@@ -116,6 +122,7 @@ export const Assignees = () => {
             ],
           });
         } else {
+          
           activities.push({
             task_id: selectedTask?.id as string,
             user_id: user?.id as string,
@@ -130,6 +137,36 @@ export const Assignees = () => {
               { type: 'date', value: new Date().toISOString() },
             ],
           });
+        }
+
+        // Send email notifications to assigned users (excluding self-assignment)
+        const assigneesToEmail = addedAssignees.filter((id) => id !== user?.id);
+     
+
+        for (const assigneeId of assigneesToEmail) {
+          const assigneeInfo = allMembers.find((m) => m.id === assigneeId);
+       
+
+          if (assigneeInfo && assigneeInfo.email) {
+            try {
+              const response = await fetch('/api/assign-task', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  to: assigneeInfo.email,
+                  assigneeName: assigneeInfo.name,
+                  assignedByName: user?.name || 'Someone',
+                  projectName: projectName || 'a project',
+                  taskTitle: task?.title || 'Untitled Task',
+                  taskDescription: task?.description || '',
+                  projectId: params.projectId,
+                  taskId: selectedTask?.id,
+                }),
+              });
+            } catch (error) {
+              console.error('Failed to send task assignment email to:', assigneeInfo.email, error);
+            }
+          }
         }
       }
 

@@ -3,6 +3,7 @@ import { primaryBtnStyles } from '@/app/commonStyles';
 import { CreateCustomFieldOptionModal } from '@/components/CreateCustomFieldOptionModal';
 import { CustomFieldOptions } from '@/components/CustomFieldOptions';
 import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/lib/utils';
 import { createClient } from '@/utils/supabase/client';
@@ -111,6 +112,7 @@ export const Statuses = ({ projectId, items: initialItems }: Props) => {
           className={cn(primaryBtnStyles)}
           disabled={isSaving || !hasUnsavedChanges}
         >
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isSaving ? 'Saving...' : 'Save changes'}
         </Button>
       </div>

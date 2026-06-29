@@ -3,6 +3,7 @@ import { primaryBtnStyles } from '@/app/commonStyles';
 import { CreateCustomFieldOptionModal } from '@/components/CreateCustomFieldOptionModal';
 import { CustomFieldOptions } from '@/components/CustomFieldOptions';
 import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useProjectQueries } from '@/hooks/useProjectQueries';
 import { cn } from '@/lib/utils';
@@ -112,6 +113,7 @@ export const Priorities = ({ projectId, items: initialItems }: Props) => {
           className={cn(primaryBtnStyles)}
           disabled={isSaving || !hasUnsavedChanges}
         >
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isSaving ? 'Saving...' : 'Save changes'}
         </Button>
       </div>

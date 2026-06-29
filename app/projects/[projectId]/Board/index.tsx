@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { columns as columnsUtils } from '@/utils/columns';
 import { getColumnSortedTasks, sortTasks } from '@/utils/sort';
 import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
-import { Eye, Plus } from 'lucide-react';
+import { Eye, Plus, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { ColumnContainer } from './ColumnContainer';
 import { TaskDetailsProvider } from './TaskDetailsContext';
@@ -133,7 +133,12 @@ export const Board: React.FC<Props> = ({
 
   return (
     <TaskDetailsProvider onTaskUpdate={handleTaskUpdate}>
-      <div className="h-[calc(100vh-200px)]">
+      <div className="h-[calc(100vh-200px)] relative">
+        {isLoading && (
+          <div className="absolute inset-0 bg-white/50 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
         {hiddenColumns.size > 0 && (
           <div className="py-1">
             <Button

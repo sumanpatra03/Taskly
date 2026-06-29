@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
@@ -133,6 +134,7 @@ export function ProjectSettingsForm({ project }: ProjectSettingsFormProps) {
           disabled={isSaving}
           className={cn(secondaryBtnStyles)}
         >
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isSaving ? 'Saving...' : 'Save Changes'}
         </Button>
       </div>
