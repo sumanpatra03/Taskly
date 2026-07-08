@@ -63,11 +63,21 @@ export const TaskItem = ({ item, projectName, index }: Props) => {
         {...listeners}
         className="bg-white dark:bg-gray-900 px-4 py-3 mx-2 rounded-md border border-gray-300 dark:border-gray-700 text-sm cursor-grab"
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <span className="text-[11px] text-gray-400 dark:text-gray-400">
             {projectName}
           </span>
-          <StackedAvatars users={(item.assignees as Partial<IUser>[]) || []} />
+          <div className="flex items-center gap-1.5">
+            {item.story_points !== undefined && item.story_points !== null && (
+              <span
+                className="inline-flex items-center justify-center px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-850 text-[10px] font-bold text-gray-650 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                title="Story Points"
+              >
+                {item.story_points} SP
+              </span>
+            )}
+            <StackedAvatars users={(item.assignees as Partial<IUser>[]) || []} />
+          </div>
         </div>
         <div
           onClick={handleClick}

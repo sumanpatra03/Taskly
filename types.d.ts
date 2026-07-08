@@ -89,6 +89,17 @@ interface ITask {
   created_by: string;
   statusPosition: number;
   assignees?: string[];
+  story_points?: number | null;
+}
+
+interface ISubtask {
+  id: string;
+  task_id: string;
+  title: string;
+  completed: boolean;
+  position: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 interface IComment {
@@ -175,6 +186,7 @@ interface MemberWithUser extends IProjectMember {
 }
 
 interface ITaskWithOptions extends Partial<ITask> {
+  story_points?: number | null;
   creator?: {
     id: string;
     name: string;

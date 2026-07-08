@@ -1,0 +1,7 @@
+- [x] Add `story_points` to `types.d.ts`
+- [x] Add `story_points` to select query in `utils/tasks.ts`
+- [x] Add `updateStoryPoints` mutation to `hooks/useTaskQueries.ts`
+- [x] Create `<Estimate />` component in `app/projects/[projectId]/TaskDetails/Estimate.tsx`
+- [x] Render `<Estimate />` in `app/projects/[projectId]/TaskDetails/index.tsx`
+- [x] Render story points badge in `app/projects/[projectId]/Board/TaskItem.tsx`
+- [x] Verify build with `npx next build`

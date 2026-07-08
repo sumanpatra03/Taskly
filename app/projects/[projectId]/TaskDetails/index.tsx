@@ -14,6 +14,8 @@ import { OtherActions } from './OtherActions';
 import { Participants } from './Participants';
 import { Project } from './Project';
 import { TaskLabels } from './TaskLabels';
+import { Subtasks } from './Subtasks';
+import { Estimate } from './Estimate';
 import { useTaskDetails } from '../Board/TaskDetailsContext';
 import { useActivityQueries } from '@/hooks/useActivityQueries';
 import { useCommentQueries } from '@/hooks/useCommentQueries';
@@ -144,6 +146,7 @@ export const TaskDetails = () => {
       <div className="flex-grow">
         <p className="font-bold pb-2">Description</p>
         <TaskDescription />
+        <Subtasks />
         <div className="border-l pt-4 ml-8">
           {timelineItems.map((item) => (
             <MemoizedTimelineItem
@@ -160,6 +163,8 @@ export const TaskDetails = () => {
 
       <div className="w-full lg:w-[255px]">
         <Assignees />
+        <Separator />
+        <Estimate />
         <Separator />
         <TaskLabels />
         <Separator />

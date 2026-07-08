@@ -94,6 +94,16 @@ export const useTaskQueries = (taskId: string) => {
     },
   });
 
+  // Update story points
+  const { mutate: updateStoryPoints } = useMutation({
+    mutationFn: (points: number | null) =>
+      tasks.details.update(taskId, { story_points: points }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['task', taskId] });
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+    },
+  });
+
   return {
     task,
     updateDescription,
@@ -104,6 +114,7 @@ export const useTaskQueries = (taskId: string) => {
     updateSize,
     updateDates,
     deleteTask,
+    updateStoryPoints,
   };
 };
 

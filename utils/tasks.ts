@@ -15,6 +15,7 @@ export const tasks = {
           title,
           status_id,
           statusPosition,
+          story_points,
           creator:created_by ( id, name, avatar ),
           size ( id, label, color ),
           priority ( id, label, color, order ),
