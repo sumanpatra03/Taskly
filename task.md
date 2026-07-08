@@ -1,7 +1,9 @@
-- [x] Add `story_points` to `types.d.ts`
-- [x] Add `story_points` to select query in `utils/tasks.ts`
-- [x] Add `updateStoryPoints` mutation to `hooks/useTaskQueries.ts`
-- [x] Create `<Estimate />` component in `app/projects/[projectId]/TaskDetails/Estimate.tsx`
-- [x] Render `<Estimate />` in `app/projects/[projectId]/TaskDetails/index.tsx`
-- [x] Render story points badge in `app/projects/[projectId]/Board/TaskItem.tsx`
+- [x] Add custom fields interface types in `types.d.ts`
+- [x] Implement Supabase CRUD utility in `utils/customFields.ts`
+- [x] Implement query hooks in `hooks/useCustomFieldsQueries.ts`
+- [x] Implement Custom Fields manager Settings panel in `app/projects/[projectId]/settings/custom-fields/CustomFields.tsx`
+- [x] Create Custom Fields settings subpage in `app/projects/[projectId]/settings/custom-fields/page.tsx`
+- [x] Add sidebar menu item in `app/projects/[projectId]/settings/SettingsLayout.tsx`
+- [x] Create Custom Fields editor sidebar in `app/projects/[projectId]/TaskDetails/CustomFieldsSidebar.tsx`
+- [x] Integrate Custom Fields editor inside Task Drawer in `app/projects/[projectId]/TaskDetails/index.tsx`
 - [x] Verify build with `npx next build`

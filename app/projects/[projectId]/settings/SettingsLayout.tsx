@@ -15,6 +15,7 @@ import {
   Settings,
   Tags,
   Users,
+  Sliders,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
@@ -64,6 +65,12 @@ const navigationItems: (
     label: 'Size',
     link: '/settings/sizes',
     icon: <Proportions className="h-4 w-4" />,
+    minRole: 'admin',
+  },
+  {
+    label: 'Custom Fields',
+    link: '/settings/custom-fields',
+    icon: <Sliders className="h-4 w-4" />,
     minRole: 'admin',
   },
 ];

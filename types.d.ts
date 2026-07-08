@@ -40,6 +40,24 @@ interface IProject {
   closed: boolean;
 }
 
+interface IProjectWithStats extends IProject {
+  tasks?: {
+    id: string;
+    status_id: string;
+    statuses: {
+      label: string;
+    } | null;
+  }[];
+  project_members?: {
+    user_id: string;
+    users: {
+      id: string;
+      name: string;
+      avatar: string;
+    } | null;
+  }[];
+}
+
 interface IProjectMember {
   id: string;
   project_id: string;
@@ -217,4 +235,23 @@ interface ITaskWithOptions extends Partial<ITask> {
     avatar: string;
     links: IUserLink[];
   }[];
+}
+
+interface ITaskCustomField {
+  id: string;
+  project_id: string;
+  name: string;
+  type: 'text' | 'number' | 'select' | 'date';
+  options: string[];
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+interface ITaskCustomFieldValue {
+  id: string;
+  task_id: string;
+  field_id: string;
+  value: string | null;
+  created_at?: Date;
+  updated_at?: Date;
 }

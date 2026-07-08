@@ -6,12 +6,12 @@ import { ProjectListHeader } from './components/ProjectListHeader';
 
 interface ProjectListProps {
   tab: 'active' | 'all' | 'closed';
-  projects: IProject[];
+  projects: IProjectWithStats[];
   sortOrder: 'newest' | 'oldest';
   onSort?: (order: 'newest' | 'oldest') => void;
   setProjectToClose?: (id: string) => void;
   setProjectToReopen?: (id: string) => void;
-  setProjectToDelete?: (project: IProject) => void;
+  setProjectToDelete?: (project: IProjectWithStats) => void;
 }
 
 export const ProjectList = ({
@@ -28,14 +28,14 @@ export const ProjectList = ({
   }
 
   return (
-    <div className="border rounded-md">
+    <div className="space-y-4">
       <ProjectListHeader
         tab={tab}
         count={projects.length}
         sortOrder={sortOrder}
         onSort={onSort}
       />
-      <div>
+      <div className="bg-white dark:bg-slate-900/30 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 divide-y divide-slate-100 dark:divide-slate-850/40 overflow-hidden shadow-[0_4px_24px_-10px_rgba(0,0,0,0.03)] backdrop-blur-md">
         {projects.map((project) => (
           <ProjectItem
             key={project.id}

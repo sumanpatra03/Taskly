@@ -225,11 +225,30 @@ export const projects = {
 
   // User's projects
   getUserProjects: async (userId: string) => {
+    const query = `
+      *,
+      tasks (
+        id,
+        status_id,
+        statuses (
+          label
+        )
+      ),
+      project_members (
+        user_id,
+        users (
+          id,
+          name,
+          avatar
+        )
+      )
+    `;
+
     const [ownedProjects, memberProjects] = await Promise.all([
       // Get projects created by user
       supabase
         .from('projects')
-        .select('*')
+        .select(query)
         .eq('created_by', userId)
         .order('created_at', { ascending: false }),
 
@@ -239,7 +258,9 @@ export const projects = {
         /* Get all fields from the projects table and alias it as 'project' */
         .select(
           `
-          project:projects (*) 
+          project:projects (
+            ${query}
+          ) 
         `
         )
         .eq('user_id', userId)
@@ -257,6 +278,6 @@ export const projects = {
       ...memberProjects.data.map((row) => row.project),
     ];
 
-    return allProjects as IProject[];
+    return allProjects as IProjectWithStats[];
   },
 };

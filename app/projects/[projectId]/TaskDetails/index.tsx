@@ -16,6 +16,7 @@ import { Project } from './Project';
 import { TaskLabels } from './TaskLabels';
 import { Subtasks } from './Subtasks';
 import { Estimate } from './Estimate';
+import { CustomFieldsSidebar } from './CustomFieldsSidebar';
 import { useTaskDetails } from '../Board/TaskDetailsContext';
 import { useActivityQueries } from '@/hooks/useActivityQueries';
 import { useCommentQueries } from '@/hooks/useCommentQueries';
@@ -169,6 +170,8 @@ export const TaskDetails = () => {
         <TaskLabels />
         <Separator />
         <Project />
+        <Separator />
+        <CustomFieldsSidebar />
         <Separator />
         <Participants />
         <Separator />

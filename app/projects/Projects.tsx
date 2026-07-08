@@ -11,13 +11,13 @@ import { ReopenProjectDialog } from './components/ReopenProjectDialog';
 export const Projects = ({
   initialProjects,
 }: {
-  initialProjects: IProject[];
+  initialProjects: IProjectWithStats[];
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
-  const [availableProjects, setAvailableProjects] = useState(initialProjects);
+  const [availableProjects, setAvailableProjects] = useState<IProjectWithStats[]>(initialProjects);
   const [projectToClose, setProjectToClose] = useState<string | null>(null);
-  const [projectToDelete, setProjectToDelete] = useState<IProject | null>(null);
+  const [projectToDelete, setProjectToDelete] = useState<IProjectWithStats | null>(null);
   const [projectToReopen, setProjectToReopen] = useState<string | null>(null);
   const { toast } = useToast();
 
